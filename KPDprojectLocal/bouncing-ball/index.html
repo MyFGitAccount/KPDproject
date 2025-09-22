@@ -1,0 +1,87 @@
+'<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Drawing a Bouncing Ball Tutorial</title>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <p>Welcome to this step-by-step tutorial where you'll learn how to create a bouncing ball animation using HTML5 and CSS. Whether you're new to canvas or looking to sharpen your animation skills, this guide will walk you through each essential concept.</p>
+    <canvas id="canvas"></canvas>
+    <script>
+      const canvas=document.getElementById("canvas");
+      const height=300;
+      const width=300;
+      canvas.width=width;
+      canvas.height=height;
+      canvas.style.backgroundColor="#353535"
+      const ctx=canvas.getContext("2d");
+      let ballposx=width/2;
+      let ballposy=height/2;
+      let ballspeedx=2.1;
+      let ballspeedy=1;
+      let ballRadius=10;
+      function drawScreen(){
+         ctx.beginPath()
+         ctx.moveTo(0,0);
+         ctx.lineTo(width,0);
+         ctx.lineTo(width,height);
+         ctx.lineTo(0,height);
+         ctx.lineTo(0,0);
+         ctx.stroke();
+         ctx.closePath();
+      }
+      function drawBall(){
+         ctx.beginPath()
+         ctx.fillStyle="red";
+         ctx.arc(ballposx,ballposy,ballRadius,0,Math.PI*2,false);
+         ctx.fill();
+      }
+      function updateBall(){
+         ballposx+=ballspeedx;
+         ballposy+=ballspeedy;
+      }
+      function boundBall(){
+         if(ballposx>width||ballposx<0) ballspeedx*=-1;
+         if(ballposy>height||ballposy<0)ballspeedy*=-1;
+      }
+      function animate(){
+        ctx.clearRect(0,0,width,height);
+        drawScreen();
+        drawBall();
+        updateBall();
+        boundBall();
+        requestAnimationFrame(animate);
+      }
+      animate();
+    </script>
+    <p><strong>Part 1:</strong> Learn how to set up a drawing surface using the HTML5 &lt;canvas&gt; element.</p>
+    <p><strong>Part 2:</strong> Discover how to style and position your canvas using CSS for a clean layout.</p>
+    <p><strong>Part 3:</strong> Understand how to draw a ball on the canvas using basic HTML5 canvas api function.</p>
+    <p><strong>Part 4:</strong> Explore how to update the ball’s position to simulate motion.</p>
+    <p><strong>Part 5:</strong> Apply the update logic to animate the ball across the screen.</p>
+    <p><strong>Part 6:</strong> Wrap it all together with a draw loop that creates smooth, continuous animation.</p>
+
+    <p>Ready to dive in? Click on each part below to begin:</p>
+
+    <a href="drawScreen1.html">▶ Part 1: Setting up the canvas with HTML5</a><br>
+    <a href="drawScreen2.html">▶ Part 2: Styling the canvas using CSS</a><br>
+    <a href="drawBall.html">▶ Part 3: Drawing the ball on the canvas</a><br>
+    <a href="updateBall.html">▶ Part 4: Updating the ball’s position</a><br>
+    <a href="moveBall.html">▶ Part 5: Animating the ball with movement logic</a><br>
+    <a href="drawLoop.html">▶ Part 6: Creating a smooth animation loop</a><br>
+    <a href="ball.html">▶Example</a>
+    <br>
+    <br>
+    <p style="color:purple; font-size=5px">Reference</p>
+    <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/canvas">canvas</a><br>
+    <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/beginPath">beginPath</a><br>
+    <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/rect">rect</a><br>
+    <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/moveTo">moveTo</a><br>
+    <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineTo">lineTo</a><br>
+    <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/arc">arc</a><br>
+    <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fill">fill</a><br>
+    <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/stroke">stroke</a><br>
+    <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/clearRect">clearRect</a><br>
+    <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame">requestAnimationFrame</a><br>
+  </body>
+</html>

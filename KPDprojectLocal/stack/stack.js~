@@ -1,0 +1,127 @@
+class Stack{
+   constructor(){
+      this.capacity=1024;
+      this.size=0;
+      this.data=[];
+   }
+   push=(data)=>{
+      if(this.size>=this.capacity) return
+      this.data[this.size]=data;
+      this.size++;
+   }
+   pop=()=>{
+     if(this.size == 0) return
+     let popData=this.data[this.size-1];
+     this.size--;
+     return popData;
+   }
+   printStack=()=>{
+      for(let i=0;i<this.size;i++){
+         console.log(`stack[${i}]:${this.data[i]}`);
+      }
+   }
+   isEqual=(op)=>{
+     return (op===this.data[this.size-1]&&typeof(this.data[this.size-2])=="number"&&typeof(this.data[this.size-3])=="number")
+   }
+   eval=()=>{
+      if(this.isEqual("+")){
+        this.pop();
+        let num1=this.pop();
+        let num2=this.pop();
+        let result=num2+num1;
+        this.data[this.size]=result;
+        this.size++;
+        return result;
+      }
+      else if(this.isEqual("-")){
+        this.pop();
+        let num1=this.pop();
+        let num2=this.pop();
+        let result=num2-num1;
+        this.data[this.size]=result;
+        this.size++;
+        return result;
+      } 
+      else if(this.isEqual("/")){ 
+        this.pop();
+        let num1=this.pop();
+        let num2=this.pop();
+        let result=num2/num1;
+        this.data[this.size]=result;
+        this.size++;
+        return result;
+      }
+      else if(this.isEqual("*")){ 
+        this.pop();
+        let num1=this.pop();
+        let num2=this.pop();
+        let result=num2*num1;
+        this.data[this.size]=result;
+        this.size++;
+        return result;
+      }
+      else if(this.isEqual("^")){ 
+        this.pop();
+        let num1=this.pop();
+        let num2=this.pop();
+        let result=Math.pow(num2,num1);
+        this.data[this.size]=result;
+        this.size++;
+        return result;
+      }
+      else{
+       return "sorry this operation is not currently supported";
+      }
+   }
+   drawStackImg=(ctx,level)=>{
+     let x=ctx.canvas.width/2-30;
+     let xoffset=50;
+     let y=10+10*level;
+     let yoffset=30;
+     let textxoffset=16;
+     let textyoffset=10;
+     ctx.beginPath();
+     ctx.moveTo(x,y);
+     ctx.lineTo(x+xoffset,y);
+     ctx.lineTo(x+xoffset,y+yoffset);
+     ctx.lineTo(x,y+yoffset);
+     ctx.lineTo(x,y);
+     ctx.stroke();
+     ctx.fillText(this.data[level], x+textxoffset,y+textyoffset);
+   }
+   drawStack=(ctx)=>{
+     for(let i=0;i<this.size;i++){
+        this.drawStackImg(ctx,i);
+     }
+   }
+}
+
+let stack=new Stack();
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
+const height=600;
+const width=600;
+canvas.width=width;
+canvas.height=height;
+function drawCanvas(){
+   ctx.beginPath();
+   ctx.moveTo(0,0);
+   ctx.lineTo(0,height);
+   ctx.lineTo(width,height);
+   ctx.lineTo(width,0);
+   ctx.lineTo(0,0);
+   ctx.strokeStyle="black";
+   ctx.stroke();
+   ctx.closePath();
+}
+const stackBtn=document.getElementById("");
+stack.push(1);
+stack.push(2);
+stack.push(8);
+stack.push(4);
+stack.push("+");
+stack.eval();
+Stackat.push(5);
+stack.push(6);
+drawCanvas();
+stack.drawStack(ctx);
